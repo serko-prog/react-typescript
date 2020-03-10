@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 export interface TodoFormProps {
-    onSubmit?: (title: string) => void,
+    onAddTodo?: (title: string) => void,
     children?: React.ReactNode
   }
 
@@ -12,7 +12,7 @@ export const TodoForm: React.FC = (props: TodoFormProps) => {
     const onSubmit = () =>
     {
         if (title) {
-            props.onSubmit && props.onSubmit(title);
+            props.onAddTodo && props.onAddTodo(title);
             setTitle("");
         }
     }
