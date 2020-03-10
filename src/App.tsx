@@ -1,11 +1,26 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {ITodo} from './infrastructure/interfaces';
 import {Navbar} from './components/Navbar';
 import {TodoForm, ITodoFormProps} from './components/TodoForm';
 import {TodoList, ITodoListProps} from './components/TodoList';
 
 const App: React.FC = () => {
-  let [todoList, setTodoList] = useState<ITodo[]>([]);
+  const localStorageKey = "todos";
+  const [todoList, setTodoList] = useState<ITodo[]>([]);
+
+  useEffect(() => {
+    const saved: string | null = localStorage.getItem(localStorageKey);
+    if (saved)
+    {
+      const parsed: ITodo[] = JSON.parse(saved);
+      setTodoList(parsed);
+    }
+  }, []);
+
+  useEffect(() => {
+      localStorage.setItem(localStorageKey, JSON.stringify(todoList));
+  }, [todoList]);
+
 
   const addTodo: (title: string) => void = (title) => { 
     const newTodo: ITodo = {

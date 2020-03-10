@@ -28,7 +28,7 @@ export const TodoForm: React.FC<ITodoFormProps> = (props) => {
     <form>
         <div className="input-field">
             <input type="text" id="title" value = {title} onChange={titleChangeHandler} onKeyPress={titleKeyPressHandler}/>
-            <label htmlFor="title" className="active">Todo Title:</label>
+            <label htmlFor="title" className="active">Add todo:</label>
         </div>
     </form>
     )

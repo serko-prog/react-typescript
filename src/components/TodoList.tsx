@@ -8,6 +8,7 @@ export interface ITodoListProps {
 }
 
 export const TodoList: React.FC<ITodoListProps> = (props) => {
+    if (props.todoList.length === 0) return <p className="center">No todos</p>
     return (
         <ul>
             {
