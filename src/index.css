@@ -16,3 +16,21 @@ code {
   padding-left: 1rem;
   padding-right: 1rem;
 }
+
+.todo {
+  margin-bottom: 1rem;
+}
+
+.todo label {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 1rem;
+  background: #f0f0f0;
+}
+
+.todo i {
+  z-index: 2;
+}

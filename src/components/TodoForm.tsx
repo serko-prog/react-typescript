@@ -1,18 +1,17 @@
 import React, {useState} from "react";
 
-export interface TodoFormProps {
+export interface ITodoFormProps {
     onAddTodo?: (title: string) => void,
-    children?: React.ReactNode
   }
 
-export const TodoForm: React.FC = (props: TodoFormProps) => {
+export const TodoForm: React.FC<ITodoFormProps> = (props) => {
     let [title, setTitle] = useState<string>("");
 
     const titleChangeHandler: React.ChangeEventHandler = (event: React.ChangeEvent<HTMLInputElement>): void => setTitle(event.target.value);
     const onSubmit = () =>
     {
-        if (title) {
-            props.onAddTodo && props.onAddTodo(title);
+        if (props.onAddTodo && title) {
+            props.onAddTodo(title);
             setTitle("");
         }
     }
