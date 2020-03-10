@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Navbar} from './components/Navbar';
 import {TodoForm, TodoFormProps} from './components/TodoForm';
+import {TodoList, TodoListProps} from './components/TodoList';
 
 const App: React.FC = () => {
   let initialTodoList: Array<string> = [];
@@ -16,6 +17,7 @@ const App: React.FC = () => {
   }
   const onSubmit: (title: string) => void = (title) => addTodo(title);
   const todoformProps: TodoFormProps = {onSubmit};
+  const todoListProps: TodoListProps = {todoList};
 
   return (
     <>
@@ -23,7 +25,9 @@ const App: React.FC = () => {
       <div className="container">
         <TodoForm {...todoformProps}/>
       </div>
-      
+      <div className="container">
+        <TodoList {...todoListProps}/>
+      </div>
     </>
   );
 }
