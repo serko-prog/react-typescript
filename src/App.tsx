@@ -1,60 +1,19 @@
-import React, {useState, useEffect} from 'react';
-import {ITodo} from './infrastructure/interfaces';
+import React from 'react';
+import {BrowserRouter, Switch, Route, useHistory} from 'react-router-dom';
 import {Navbar} from './components/Navbar';
-import {TodoForm, ITodoFormProps} from './components/TodoForm';
-import {TodoList, ITodoListProps} from './components/TodoList';
+import {AboutPage} from './pages/AboutPage';
+import {TodosPage} from './pages/TodosPage';
 
-const App: React.FC = () => {
-  const localStorageKey = "todos";
-  const [todoList, setTodoList] = useState<ITodo[]>([]);
-
-  useEffect(() => {
-    const saved: string | null = localStorage.getItem(localStorageKey);
-    if (saved)
-    {
-      const parsed: ITodo[] = JSON.parse(saved);
-      setTodoList(parsed);
-    }
-  }, []);
-
-  useEffect(() => {
-      localStorage.setItem(localStorageKey, JSON.stringify(todoList));
-  }, [todoList]);
-
-
-  const addTodo: (title: string) => void = (title) => { 
-    const newTodo: ITodo = {
-      id: Date.now(), 
-      title, 
-      done: false};
-
-      setTodoList(prev => [...prev, newTodo]);
-  }
-
-  const deleteTodo: (id: number) => void = (id) => {
-    setTodoList(prev => prev.filter(item => item.id !== id));
-  }
-
-  const doneTodo: (id: number, value: boolean) => void = (id, value) => {
-    setTodoList(prev => prev.map(item => ({
-      id: item.id, 
-      title: item.title, 
-      done: item.id === id ? value : item.done
-    })));
-  }
-
-  const todoformProps: ITodoFormProps = {onAddTodo: addTodo};
-  const todoListProps: ITodoListProps = {todoList, onDeleteTodo: deleteTodo, onDoneTodo: doneTodo};
-
-  return (
-    <>
-      <Navbar/>
-      <div className="container">
-        <TodoForm {...todoformProps}/>
-        <TodoList {...todoListProps}/>
-      </div>
-    </>
-  );
-}
+const App: React.FC = () => (
+  <BrowserRouter>
+    <Navbar/>
+    <div className="container">
+    <Switch>
+      <Route component={TodosPage} path="/" exact/>
+      <Route component={AboutPage} path="/about"/>
+    </Switch>
+    </div>
+  </BrowserRouter>
+);
 
 export default App;
